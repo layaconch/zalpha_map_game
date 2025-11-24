@@ -10,32 +10,25 @@
     <div class="container">
         <header>
             <div class="score-board">
-                <div class="score"><span id="label-score">得分:</span> <span id="score">0</span></div>
-                <div class="mode-selector select-mode">
-                    <label id="label-map-select" for="map-select" style="color: white; margin-right: 10px;">地图选择:</label>
-                    <select id="map-select" class="mode-select">
-                        <option id="opt-map-china" value="china">中国省份</option>
-                        <option id="opt-map-world" value="world">世界地图</option>
-                        <option id="opt-map-europe" value="europe">欧洲地图</option>
-                    </select>
-                </div>
-                <div class="map-style-selector select-mode" id="language-selector">
-                    <label id="label-language" for="language-select" style="color: white; margin-right: 10px;">语言:</label>
-                    <select id="language-select" class="mode-select">
-                        <option value="zh">中文</option>
-                        <option value="en">English</option>
-                        <option value="jp">日本語</option>
-                    </select>
-                </div>
-                <div class="map-style-selector" id="map-style-selector" style="display: none;">
-                <label id="label-style" style="color: white; margin-right: 10px;">地图风格:</label>
-                <button class="style-btn" id="btn-abstract" data-style="abstract">抽象地图</button>
-                <button class="style-btn active" id="btn-real" data-style="real">实际地图</button>
-                </div>
-                <div class="map-style-selector" id="world-filter-selector" style="display: none;">
-                <label id="label-world-range" style="color: white; margin-right: 10px;">世界范围:</label>
-                <button class="style-btn world-filter-btn active" id="btn-area" data-filter="area">面积Top20</button>
-                <button class="style-btn world-filter-btn" id="btn-gdp" data-filter="gdp">经济Top20</button>
+                <div class="top-controls">
+                    <div class="mode-selector select-mode">
+                        <label id="label-map-select" for="map-select" style="color: white; margin-right: 10px;">地图选择:</label>
+                        <select id="map-select" class="mode-select">
+                            <option id="opt-map-china" value="china">中国省份</option>
+                            <option id="opt-map-world" value="world">世界地图</option>
+                            <option id="opt-map-europe" value="europe">欧洲地图</option>
+                        </select>
+                    </div>
+                    <div class="map-style-selector" id="map-style-selector" style="display: none;">
+                    <label id="label-style" style="color: white; margin-right: 10px;">地图风格:</label>
+                    <button class="style-btn" id="btn-abstract" data-style="abstract">抽象地图</button>
+                    <button class="style-btn active" id="btn-real" data-style="real">实际地图</button>
+                    </div>
+                    <div class="map-style-selector" id="world-filter-selector" style="display: none;">
+                    <label id="label-world-range" style="color: white; margin-right: 10px;">世界范围:</label>
+                    <button class="style-btn world-filter-btn active" id="btn-area" data-filter="area">面积Top20</button>
+                    <button class="style-btn world-filter-btn" id="btn-gdp" data-filter="gdp">经济Top20</button>
+                    </div>
                 </div>
             </div>
         </header>
@@ -53,7 +46,10 @@
                             <div class="options" id="options">
                                 <!-- 选项按钮将在这里生成 -->
                             </div>
-                            <button class="submit-btn" id="submit-btn" disabled>提交答案</button>
+                            <div class="submit-row">
+                                <button class="submit-btn" id="submit-btn" disabled>提交答案</button>
+                                <div class="score side-score"><span id="label-score">得分:</span> <span id="score">0</span></div>
+                            </div>
                         </div>
                         <div class="feedback" id="feedback"></div>
                     </div>
@@ -77,6 +73,14 @@
             </div>
             <div class="support-email">
                 Support: <a href="mailto:cheap.zphile@gmail.com">cheap.zphile@gmail.com</a>
+            </div>
+            <div class="language-footer" id="language-selector">
+                <label id="label-language" for="language-select" style="color: white; margin-right: 8px;">语言:</label>
+                <select id="language-select" class="mode-select">
+                    <option value="zh">中文</option>
+                    <option value="en">English</option>
+                    <option value="jp">日本語</option>
+                </select>
             </div>
         </footer>
     </div>

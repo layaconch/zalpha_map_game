@@ -96,8 +96,8 @@ const gameData = {
 let gameState = {
     mode: 'china',
     mapStyle: 'real', // 'abstract' 或 'real'
-    worldFilter: 'area', // 'area' | 'gdp'
-    worldTopN: 10,
+    worldFilter: typeof __WORLD_FILTER__ !== 'undefined' ? __WORLD_FILTER__ : 'area', // 'area' | 'gdp'
+    worldTopN: typeof __WORLD_TOPN__ !== 'undefined' ? __WORLD_TOPN__ : 10,
     score: 0,
     correctCount: 0,
     wrongCount: 0,
@@ -142,7 +142,7 @@ const languageMap = {
         language: 'Language',
         style: 'Map Style',
         abstract: 'Abstract',
-        real: 'Real Map',
+        real: 'Real',
         worldRange: 'World Range',
         areaTop: 'Area Top20',
         gdpTop: 'GDP Top20',
@@ -163,8 +163,8 @@ const languageMap = {
         mapEurope: '欧州地図',
         language: '言語',
         style: '地図スタイル',
-        abstract: '抽象版',
-        real: '実際の地図',
+        abstract: '抽象',
+        real: '実写',
         worldRange: '世界範囲',
         areaTop: '面積Top20',
         gdpTop: '経済Top20',
@@ -233,12 +233,7 @@ function initGame() {
         });
     });
 
-    // 绑定世界范围选择器
-    document.querySelectorAll('.world-filter-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            switchWorldFilter(e.target.dataset.filter);
-        });
-    });
+    // 世界范围固定配置（不提供 UI 切换）
 
     // （已移除TopN选择器）
 
@@ -306,16 +301,8 @@ function switchMode(mode) {
     } else {
         styleSelector.style.display = 'none';
     }
-    if (mode === 'world') {
-        if (worldFilterSelector) {
-            worldFilterSelector.style.display = 'flex';
-            document.querySelectorAll('.world-filter-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.filter === gameState.worldFilter);
-            });
-        }
-    } else {
-        if (worldFilterSelector) worldFilterSelector.style.display = 'none';
-    }
+    // 世界范围由配置控制，不展示 UI
+    if (worldFilterSelector) worldFilterSelector.style.display = 'none';
     
     // 更新统计
     updateStats();
