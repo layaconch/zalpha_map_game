@@ -1,0 +1,27 @@
+{
+  "name": "map_game",
+  "version": "1.0.0",
+  "description": "地图闯关游戏 - 通过识别地图区域来学习地理知识",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "vite preview"
+  },
+  "keywords": [
+    "game",
+    "map",
+    "geography",
+    "education"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^7.2.4"
+  },
+  "dependencies": {
+    "@highcharts/map-collection": "^2.3.2",
+    "d3": "^7.9.0"
+  }
+}

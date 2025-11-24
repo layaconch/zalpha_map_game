@@ -1,0 +1,446 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --map-stroke: #334155;
+    --bg-gradient: linear-gradient(135deg, #5d7ff3 0%, #7f4ba3 100%);
+    --panel-bg: rgba(255, 255, 255, 0.08);
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --text-main: #0f172a;
+    --text-sub: #475569;
+    --accent: #6f7bf7;
+    --accent-2: #9a6bff;
+}
+
+body {
+    font-family: 'Microsoft YaHei', 'Segoe UI', Arial, sans-serif;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    padding: 16px;
+    color: var(--text-main);
+}
+
+:root {
+    --map-stroke: #334155;
+}
+
+.container {
+    width: 100%;
+    max-width: 1480px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+header {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    padding: 18px 24px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.score-board {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.score {
+    font-size: 1.3em;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.14);
+    padding: 10px 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.mode-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mode-select {
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.9);
+    color: #0f172a;
+    font-size: 1em;
+    cursor: pointer;
+    min-width: 160px;
+}
+
+.language-selector {
+    margin-left: 10px;
+}
+
+.map-style-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.style-btn {
+    padding: 8px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.18);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.3s;
+}
+
+.style-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.style-btn.active {
+    background: white;
+    color: var(--accent);
+    font-weight: bold;
+    border-color: white;
+}
+
+.game-area {
+    padding: 20px;
+}
+
+.question-area {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#question-text {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.current-province {
+    font-size: 1.2em;
+    color: #667eea;
+    font-weight: bold;
+    min-height: 30px;
+}
+
+.game-layout {
+    display: flex;
+    gap: 24px;
+    align-items: stretch;
+    flex-wrap: nowrap;
+}
+
+.map-panel {
+    flex: 1 1 65%;
+    min-width: 0;
+}
+
+.side-panel {
+    flex: 0 0 360px;
+    max-width: 420px;
+}
+
+.side-card {
+    height: 100%;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 14px;
+    background: linear-gradient(145deg, rgba(255,255,255,0.72) 0%, rgba(239,242,255,0.9) 100%);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.map-container {
+    width: 100%;
+    height: 65vh;
+    min-height: 520px;
+    border: 2px solid rgba(0, 0, 0, 0.05);
+    border-radius: 14px;
+    margin: 8px 0 4px;
+    background: #f5f5f5;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.map-container svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* 地图区域样式 */
+.map-region {
+    fill: #d3d3d3; /* 默认灰色 */
+    stroke: #fff;
+    stroke-width: 1;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+/* D3 地图的特殊样式 - 允许内联样式覆盖 */
+.map-container svg.d3-map .map-region {
+    fill: #dbeafe;
+    stroke: var(--map-stroke, #1f2937);
+    stroke-width: 1.8px;
+}
+
+.map-region:hover {
+    stroke-width: 2;
+    stroke: #667eea;
+}
+
+.map-region.highlighted {
+    fill: #ffbf47; /* 橙色高亮 */
+    stroke: #ff8a00;
+    stroke-width: 3px;
+    filter: drop-shadow(0 0 6px rgba(255, 138, 0, 0.5));
+    animation: pulse 1.5s infinite;
+}
+
+.map-region.correct {
+    fill: #b3e6c8; /* 浅绿色已答对 */
+    stroke: #3b9a6f;
+}
+
+.map-region.wrong {
+    fill: #ff6b6b;
+    stroke: #c92a2a;
+}
+
+.highlight-marker {
+    fill: rgba(255, 191, 71, 0.25);
+    stroke: #ff8a00;
+    stroke-width: 2px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.answer-area {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+.option-btn {
+    padding: 15px 20px;
+    border: 2px solid transparent;
+    background: #f8fafc;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: all 0.3s;
+    text-align: center;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+}
+
+.option-btn:hover {
+    border-color: var(--accent);
+    background: #eef2ff;
+    transform: translateY(-2px);
+}
+
+.option-btn.selected {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: white;
+    font-weight: bold;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #7c8dfd 0%, #a68cff 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.submit-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.feedback {
+    padding: 14px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-block {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: rgba(102, 126, 234, 0.08);
+    border: 1px dashed #cbd5ff;
+}
+
+.brand-icon {
+    font-size: 1.8em;
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.4;
+}
+
+.brand-title {
+    font-weight: 700;
+    color: #334155;
+}
+
+.brand-subtitle {
+    font-size: 0.9em;
+    color: #64748b;
+}
+
+.footer-brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 0 24px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.footer-brand .brand-block {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #fff;
+}
+
+.footer-brand .brand-title {
+    color: #fff;
+}
+
+.footer-brand .brand-subtitle {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.support-email {
+    color: #f8fafc;
+    font-size: 0.95em;
+}
+
+.support-email a {
+    color: #e0e7ff;
+    text-decoration: underline;
+}
+
+.feedback.correct {
+    background: #e7f6ed;
+    color: #166534;
+    border: 2px solid #a3e3bf;
+}
+
+.feedback.wrong {
+    background: #fde8e8;
+    color: #b42318;
+    border: 2px solid #f7b7b7;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    background: #f8f9fa;
+    border-top: 2px solid #ddd;
+}
+
+.stat-item {
+    font-size: 1.1em;
+    color: #333;
+}
+
+.stat-item span {
+    font-weight: bold;
+    color: #667eea;
+}
+
+/* 世界地图和省内地图的特殊样式 */
+.world-map-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.province-map-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+@media (max-width: 1100px) {
+    .game-layout {
+        flex-direction: column;
+    }
+    .side-panel {
+        flex: 1 1 auto;
+        max-width: 100%;
+    }
+    .map-container {
+        height: 55vh;
+        min-height: 380px;
+    }
+    .options {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+}
